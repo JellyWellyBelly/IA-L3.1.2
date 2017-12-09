@@ -1,10 +1,11 @@
 import numpy as np
 from sklearn import neighbors, datasets, tree, linear_model
-
 from sklearn.externals import joblib
 import timeit
-
+from sklearn import linear_model
 from sklearn.model_selection import cross_val_score
+
+
 
 def features(X):
     
@@ -18,26 +19,30 @@ def features(X):
 
     return F     
 
+
+
 def mytraining(f,Y):
-	n_neigh = 2
-	weights = 'distance'
-	clf = neighbors.KNeighborsClassifier(n_neigh, weights = weights)
+	clf = neighbors.KNeighborsClassifier(weights = 'distance')
 	clf = clf.fit(f,Y)
 	return clf
 
 
-# erro um pouco maior
-# def mytraining(f,Y):
-# 	min_sample_split = 8
-# 	clf = tree.DecisionTreeClassifier(min_samples_split = min_sample_split)
-# 	clf = clf.fit(f,Y)
-# 	return clf
+
+
+def mytrainingaux(f,Y):
+	clf = tree.DecisionTreeClassifier(min_samples_split = 2, splitter = 'random')
+	clf = clf.fit(f,Y)
+	return clf
+
+
 
 
 def myprediction(f, clf):
     Ypred = clf.predict(f)
 
     return Ypred
+
+
 
 def numVowels(str):
 	soma = 0
@@ -49,6 +54,8 @@ def numVowels(str):
 
 	return soma
 
+
+
 def startsWithVowel(str):
 	if len(str.lower()) > 0:
 		result = str[0].lower() in "aáàãâeéêiíoóõôuú"
@@ -59,6 +66,8 @@ def startsWithVowel(str):
 		return 1
 	else:
 		return 0
+
+
 
 
 def sumASCII(string):
